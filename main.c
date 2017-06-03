@@ -5,7 +5,11 @@
 
 int main()
 {
-    ler_arquivo("Pacientes.csv");
+    lista_enc_t *lista;
+    fila_t *fila;
+    no_t *no;
+
+    lista = ler_arquivo("Pacientes.csv");
 
     return 0;
 }
