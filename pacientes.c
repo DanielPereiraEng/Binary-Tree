@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "pacientes.h"
+#include "lista_enc.h"
+#include "no.h"
+#include "fila.h"
+
+
 #define DEBUG
 #define TAM_BUFFER 100
 
@@ -18,7 +24,7 @@ struct dados{
 };
 
 
-void ler_arquivo(char *nome){
+lista_enc_t *ler_arquivo(char *nome){
 
 	char buffer[TAM_BUFFER];
 	char buffer_nome[TAM_BUFFER];
@@ -30,6 +36,9 @@ void ler_arquivo(char *nome){
 	int controle;
 
 	FILE *fp;
+
+	lista_enc_t *lista;
+    no_t *no;
 
 	fp = fopen(nome, "r");
 
@@ -44,7 +53,7 @@ void ler_arquivo(char *nome){
 
 		controle = sscanf(buffer, "%100[^,],%d,%c,%100[^,],%d,%d\n", buffer_nome, &idade, &sexo, buffer_diagnostico, &prioridade, &chance);
 
-		printf("%s - %i - %c - %s - %d - %d\n", buffer_nome, idade, sexo, buffer_diagnostico, prioridade, chance);
+		//printf("%s - %i - %c - %s - %d - %d\n", buffer_nome, idade, sexo, buffer_diagnostico, prioridade, chance);
 
     /* Se o arquivo estiver invalido */
     if (controle != 6) {
