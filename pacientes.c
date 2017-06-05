@@ -14,7 +14,7 @@
 #define TRUE 1
 #define FALSE 0
 
-struct dados{
+struct pacientes{
     char *nome;
     int idade;
     char sexo;
@@ -39,6 +39,7 @@ lista_enc_t *ler_arquivo(char *nome){
 
 	lista_enc_t *lista;
     no_t *no;
+    paciente_t *paciente;
 
 	fp = fopen(nome, "r");
 
@@ -46,6 +47,8 @@ lista_enc_t *ler_arquivo(char *nome){
 		perror("ler_arquivo");
 		exit(EXIT_FAILURE);
 	}
+
+	lista = cria_lista_enc();
 
 	fgets (buffer, 100, fp);
 
@@ -60,5 +63,50 @@ lista_enc_t *ler_arquivo(char *nome){
         fprintf(stderr, "Arquivo de entrada invalido\n");
         exit(EXIT_FAILURE);}
 
+    paciente = cria_paciente(buffer_nome, idade, sexo, buffer_diagnostico, prioridade, chance);
+    no = criar_no(paciente);
+    add_cauda(lista,no);
+
         }
+
+    fclose(fp);
+
+	return lista;
+}
+
+paciente_t * cria_paciente(char *nome, int idade, char sexo, char *diagnostico, int prioridade, int chance){
+
+	paciente_t *p;
+
+	p = malloc(sizeof(paciente_t));
+
+	if (p == NULL){
+
+		perror("cria_pessoa (struct)");
+		exit(EXIT_FAILURE);
+	}
+
+	p->nome = malloc(strlen(nome) + 1);
+
+	if (p == NULL){
+		perror("cria_pessoa (nome)");
+		exit(EXIT_FAILURE);
+	}
+
+	p->diagnostico = malloc(strlen(diagnostico) + 1);
+
+	if (p == NULL){
+		perror("cria_pessoa (diagnostico)");
+		exit(EXIT_FAILURE);
+	}
+
+
+	/* Copia os dados para a lista alocada */
+	strncpy(p->nome, nome, strlen(nome) + 1);
+	p->idade = idade;
+	p->sexo = sexo;
+	p->prioridade = prioridade;
+	p->chance = chance;
+
+	return p;
 }
