@@ -21,6 +21,10 @@ int main()
         printf("%s - %d \n", obter_nome(paciente_atual), obter_idade(paciente_atual));
     }
 
+    libera_dados_list_enc(lista);
+
+    libera_fila(fila);
+
     printf("Ponto de Teste");
 
     return 0;
