@@ -14,9 +14,12 @@ int main()
 
     fila = cria_fila_pacientes(lista);
 
-    while((fila)!=NULL){
+    tamanho = obtem_tamanho(lista);
+
+    for(x = 0; x <= tamanho-1; x++){
         paciente_atual = dequeue(fila);
-        printf("%s - %d \n", obter_nome(paciente_atual), obter_idade(paciente_atual));}
+        printf("%s - %d \n", obter_nome(paciente_atual), obter_idade(paciente_atual));
+    }
 
     printf("Ponto de Teste");
 
