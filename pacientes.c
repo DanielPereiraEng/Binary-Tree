@@ -124,8 +124,6 @@ fila_t* cria_fila_pacientes (lista_enc_t *lista){
 
     tamanho = obtem_tamanho(lista);
 
-    printf("NUMERO DE PESSOAS NESSE NEGOCIO: %d\n", tamanho);
-
     meu_no = obtem_cabeca(lista);
 
     for(x = 0; x <= tamanho-1; x++){
