@@ -10,4 +10,13 @@ lista_enc_t *ler_arquivo(char *nome_arq);
 
 paciente_t *cria_paciente(char *nome, int idade, char sexo, char *diagnostico, int prioridade, int chance);
 
+char * obter_nome(paciente_t *p);
+char obter_sexo(paciente_t *p);
+int obter_idade(paciente_t *p);
+char * obter_diagnostico(paciente_t *p);
+int obter_prioridade(paciente_t *p);
+int obter_chance(paciente_t *p);
+
+fila_t* cria_fila_pacientes (lista_enc_t *lista);
+
 #endif /* PACIENTES_H_ */
