@@ -13,6 +13,7 @@ no_t * remove_elem(lista_enc_t *lista, int index);
 no_t *obtem_cabeca(lista_enc_t *lista);
 
 int lista_vazia(lista_enc_t *lista);
+int obtem_tamanho(lista_enc_t *lista);
 no_t *remover_cabeca(lista_enc_t *lista);
 
 #endif // LISTA_ENC_H_INCLUDED
