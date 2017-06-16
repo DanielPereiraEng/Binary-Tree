@@ -195,3 +195,20 @@ char * obter_diagnostico(paciente_t *p){
 
 	return p->diagnostico;
 }
+
+
+void libera_dados_list_enc(lista_enc_t *lista){
+
+    no_t *no = obtem_cabeca(lista);
+
+    while(no){
+        paciente_t *p=obter_dado(no);
+        free(p->nome);
+        free(p->diagnostico);
+        free(p);
+        no_t *prox = obter_proximo(no);
+        free(no);
+        no=prox;
+    }
+
+    free(lista);}
