@@ -4,7 +4,7 @@
 #include "lista_enc.h"
 #include "no.h"
 
-#define DEBUG
+//#define DEBUG
 
 struct listas_enc {
     no_t *cabeca;
@@ -83,6 +83,16 @@ int lista_vazia(lista_enc_t *lista)
 	(lista->tamanho == 0) ? (ret = 1) : (ret = 0);
 
 	return ret;
+}
+
+int obtem_tamanho(lista_enc_t *lista)
+{
+	if (lista == NULL){
+        fprintf(stderr,"obtem_tamanho: problemas");
+        exit(EXIT_FAILURE);
+    }
+
+	return lista->tamanho;
 }
 
 no_t *remover_cabeca(lista_enc_t *lista)
