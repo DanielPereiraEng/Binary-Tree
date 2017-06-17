@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "pacientes.h"
+#include "arvore_bin.h"
 
 int main()
 {
@@ -9,6 +10,7 @@ int main()
     fila_t *fila;
     paciente_t *paciente_atual;
     int x, tamanho;
+    //arvore_t *arvore_binaria; //ainda em teste
 
     lista = ler_arquivo("Pacientes.csv");
 
