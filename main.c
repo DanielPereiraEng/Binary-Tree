@@ -10,7 +10,9 @@ int main()
     fila_t *fila;
     paciente_t *paciente_atual;
     int x, tamanho;
-    //arvore_t *arvore_binaria; //ainda em teste
+    arvore_t *arvore_binaria; //ainda em teste
+
+    arvore_binaria = NULL;
 
     lista = ler_arquivo("Pacientes.csv");
 
@@ -20,7 +22,8 @@ int main()
 
     for(x = 0; x <= tamanho-1; x++){
         paciente_atual = dequeue(fila);
-        printf("%s - %d \n", obter_nome(paciente_atual), obter_idade(paciente_atual));
+        //printf("%s - %d \n", obter_nome(paciente_atual), obter_idade(paciente_atual));
+        inserir(&arvore_binaria, paciente_atual);
     }
 
     libera_dados_list_enc(lista);
