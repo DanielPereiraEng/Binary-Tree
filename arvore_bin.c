@@ -3,68 +3,74 @@
 #include <string.h>
 
 #include "arvore_bin.h"
+#include "pacientes.h"
 
 struct arvore {
     void* dados;
     struct arvore * right, * left;
 };
-typedef struct arvore node;
+typedef struct arvore arvore_t;
 
-void insert(node ** tree, int val)
+void inserir(arvore_t **tree ,paciente_t *paciente_atual)
 {
-    node *temp = NULL;
+    arvore_t *temp = NULL;
     if(!(*tree))
     {
-        temp = (node *)malloc(sizeof(node));
-        temp->left = temp->right = NULL;
-        temp->data = val;
+        temp = (arvore_t *)malloc(sizeof(arvore_t));
+        temp->left =  NULL;
+        temp->right = NULL;
+        temp->dados = paciente_atual;
         *tree = temp;
         return;
     }
 
-    if(val < (*tree)->data)
+    paciente_t* pessoal_alvo;
+
+    pessoal_alvo = temp->dados;
+
+    if(obter_prioridade(paciente_atual) < obter_prioridade(pessoal_alvo))
     {
-        insert(&(*tree)->left, val);
+        inserir(&(*tree)->left, paciente_atual);
     }
-    else if(val > (*tree)->data)
+    else if(paciente_atual > (*tree)->dados)
     {
-        insert(&(*tree)->right, val);
+        inserir(&(*tree)->right, paciente_atual);
     }
 
 }
 
-//void print_preorder(node * tree)
+//void print_preorder(arvore_t * tree)
 //{
 //    if (tree)
 //    {
-//        printf("%d\n",tree->data);
+//        printf("%d\n",tree->dados);
 //        print_preorder(tree->left);
 //        print_preorder(tree->right);
 //    }
 
 //}
 
-//void print_inorder(node * tree)
+//void print_inorder(arvore_t * tree)
 //{
 //    if (tree)
 //    {
 //        print_inorder(tree->left);
-//        printf("%d\n",tree->data);
+//        printf("%d\n",tree->dados);
 //        print_inorder(tree->right);
 //    }
 //}
 
-//void print_postorder(node * tree)
+//void print_postorder(arvore_t * tree)
 //{
 //    if (tree)
 //    {
 //        print_postorder(tree->left);
 //        print_postorder(tree->right);
-//        printf("%d\n",tree->data);
+//        printf("%d\n",tree->dados);
 //    }
 //}
 
-//void deltree(node * tree)
+//void deltree(arvore_t * tree)
 //{
 //    if (tree)
 //    {
@@ -73,4 +79,3 @@ void insert(node ** tree, int val)
 //        free(tree);
 //    }
 //}
-
