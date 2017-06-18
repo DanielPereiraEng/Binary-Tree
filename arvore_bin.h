@@ -6,10 +6,11 @@
 
 typedef struct arvore arvore_t;
 
-void inicializar(arvore_t **tree ,paciente_t *paciente_atual, pilha_t *main_stack);
 
-void inserir(arvore_t **tree , paciente_t *paciente_atual, pilha_t *main_stack, int indice);
+void inserir(arvore_t **tree , paciente_t *paciente_atual);
 
 void print_preorder(arvore_t *tree);
+void print_inorder(arvore_t *tree);
+void print_posorder(arvore_t *tree);
 
 #endif /* ARVORE_BIN_H_ */
