@@ -4,7 +4,6 @@
 
 #include "arvore_bin.h"
 #include "pacientes.h"
-#include "pilha.h"
 
 struct arvore {
     void *dados;
@@ -81,3 +80,38 @@ void print_posorder(arvore_t *tree){
 //    }
 //}
 
+arvore_t *heapsort_loop(arvore_t * tree, int tamanho){
+    int controle;
+    arvore_t *heap1, *heap2;
+
+    for (controle = 0; heap1 != heap2, controle < tamanho; ++controle){
+//        if ((controle % 2) == 0)
+//            heap1 = heapsort(tree);
+//        else
+//            heap2 = heapsort(tree);
+
+    }
+
+    return tree;
+}
+
+arvore_t *heapsort(arvore_t *tree){
+    arvore_t *temporario;
+
+    if (tree->left && tree->right)
+   {
+      /* puts lesser value on top of node */
+      if ((tree->left->dados < tree->right->dados) && (tree->left->dados < tree->dados))
+      {
+         temporario->dados = tree->dados; tree->dados = tree->left->dados; tree->left->dados = temporario->dados;
+      }
+      else if ((tree->left->dados > tree->right->dados) && (tree->right->dados < tree->dados))
+      {
+         temporario->dados = tree->dados; tree->dados = tree->right->dados; tree->right->dados = temporario->dados;
+      }
+      if (tree->left) heapsort (tree->left);
+      if (tree->right) heapsort (tree->right);
+   }
+   return tree;
+
+}
