@@ -3,16 +3,17 @@
 
 #include "pacientes.h"
 #include "arvore_bin.h"
-#include "pilha.h"
 
 int main()
 {
     lista_enc_t *lista;
     fila_t *fila;
     paciente_t *paciente_atual;
-    int x, tamanho, *nivel=0;
+    int x, tamanho;
     arvore_t *arvore_binaria;
+    arvore_t *arvore_organizada;
 
+    arvore_organizada = NULL;
     arvore_binaria = NULL;
 
     lista = ler_arquivo("Pacientes.csv");
@@ -21,21 +22,26 @@ int main()
 
     tamanho = obtem_tamanho(lista);
 
-    for(x = 0; x <= tamanho - 1; x++){
+    paciente_t *buffer[tamanho];
+
+    for(x = 0; x <= tamanho-1; x++){
         paciente_atual = dequeue(fila);
-        //printf("%s - %d \n", obter_nome(paciente_atual), obter_idade(paciente_atual));
-        inserir(&arvore_binaria, paciente_atual);
-    }
+        buffer[x] = paciente_atual;}
 
-    print_preorder(arvore_binaria);
+    x=0;
 
-    printf("%d\n", nivel);
+    new_tree(&arvore_organizada, buffer, tamanho-1, x);
+
+    arvore_binaria = heapsort_loop(arvore_organizada, tamanho);
+
+//    print_preorder(arvore_organizada);
+
+//    print_preorder(arvore_organizada);
+
 
     libera_dados_list_enc(lista);
 
     libera_fila(fila);
-
-    printf("Ponto de Teste");
 
     return 0;
 }
