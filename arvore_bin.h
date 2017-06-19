@@ -6,7 +6,7 @@
 typedef struct arvore arvore_t;
 
 
-void inserir(arvore_t **tree , paciente_t *paciente_atual);
+void inserir(arvore_t **tree , paciente_t *paciente_atual, int key);
 
 void print_preorder(arvore_t *tree);
 void print_inorder(arvore_t *tree);
