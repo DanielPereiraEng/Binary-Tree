@@ -7,12 +7,13 @@
 #include "no.h"
 #include "fila.h"
 
-
-#define DEBUG
+//#define DEBUG
 #define TAM_BUFFER 100
 
 #define TRUE 1
 #define FALSE 0
+
+
 
 struct pacientes{
     char *nome;
@@ -56,7 +57,9 @@ lista_enc_t *ler_arquivo(char *nome){
 
 		controle = sscanf(buffer, "%100[^,],%d,%c,%100[^,],%d,%d\n", buffer_nome, &idade, &sexo, buffer_diagnostico, &prioridade, &chance);
 
-		//printf("%s - %i - %c - %s - %d - %d\n", buffer_nome, idade, sexo, buffer_diagnostico, prioridade, chance);
+        #ifdef DEBUG
+        printf(Lido "%s - %i - %c - %s - %d - %d\n", buffer_nome, idade, sexo, buffer_diagnostico, prioridade, chance);
+        #endif // DEBUG
 
     /* Se o arquivo estiver invalido */
     if (controle != 6) {
