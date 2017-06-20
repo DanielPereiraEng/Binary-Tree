@@ -8,7 +8,7 @@
 struct arvore {
     void *dados;
     struct arvore *right, * left;
-    int numero;
+    int numero, ordem;
 };
 
 void print_tree(arvore_t *tree, int tamanho, int indice){
@@ -19,7 +19,7 @@ void print_tree(arvore_t *tree, int tamanho, int indice){
     if(tree == NULL){
         return;}
 
-    if(tree->numero == 0){
+    if(tree->ordem == 0){
         paciente = tree->dados;
         printf("%s\n", obter_nome(paciente));
         ind++;}
@@ -38,7 +38,7 @@ int imprimir(arvore_t *tree, int tamanho, int indice){
     if(ind>tamanho)
         return tamanho+1;
 
-    if(tree->numero == ind){
+    if(tree->ordem == ind){
         paciente = tree->dados;
         printf("%s\n", obter_nome(paciente));
         ind++;
@@ -75,6 +75,7 @@ void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int in
     if(indice == 0){
         temp = (arvore_t *)malloc(sizeof(arvore_t));
         temp->numero = indice;
+        temp->ordem = indice;
         temp->dados = paciente_atual[ind];
 
         if(t1>maximo){
@@ -88,6 +89,7 @@ void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int in
         temp2->left =  NULL;
         temp2->right = NULL;
         temp2->numero = (t1);
+        temp2->ordem = (t1);
         temp2->dados = paciente_atual[t1];
 
         if(t2>maximo){
@@ -100,18 +102,23 @@ void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int in
         temp3->left =  NULL;
         temp3->right = NULL;
         temp3->numero = (t2);
+        temp3->ordem = (t2);
         temp3->dados = paciente_atual[t2];
 
         temp->left = temp2;
         temp->right = temp3;
 
         *tree = temp;
-
         ind++;}
 
     while(ind<=maximo){
         ind = new_tree_loop(&(*tree)->left, paciente_atual, maximo, ind);
         ind = new_tree_loop(&(*tree)->right, paciente_atual, maximo, ind);}
+
+
+    free(temp);
+    free(temp2);
+    free(temp3);
 
     return;
 }
@@ -137,6 +144,7 @@ int new_tree_loop(arvore_t **tree , paciente_t *paciente_atual[], int maximo, in
         temp2->left =  NULL;
         temp2->right = NULL;
         temp2->numero = t1;
+        temp2->ordem = t1;
         temp2->dados = paciente_atual[t1];
 
         if(t2>maximo)
@@ -146,6 +154,7 @@ int new_tree_loop(arvore_t **tree , paciente_t *paciente_atual[], int maximo, in
         temp3->left =  NULL;
         temp3->right = NULL;
         temp3->numero = t2;
+        temp3->ordem = t2;
         temp3->dados = paciente_atual[t2];
 
         temp->left = temp2;
@@ -159,31 +168,26 @@ int new_tree_loop(arvore_t **tree , paciente_t *paciente_atual[], int maximo, in
     ind = new_tree_loop(&(*tree)->left, paciente_atual, maximo, ind);
     ind = new_tree_loop(&(*tree)->right, paciente_atual, maximo, ind);
 
-    return ind;
-    }
+    return ind;}
 
 void *organizador(arvore_t **tree, int maximo, int indice){
 
-    printf("PONTO DE TESTE 0\n");
-
-    int mudar=0;
+    int mudar=0, teste;
     int ind=indice;
     arvore_t *temp = *tree;
 
-    printf("PONTO DE TESTE 1\n");
+    teste = sqrt(maximo);
 
-    while(ind<maximo){
-        printf("fazendo organizaçao do indice %d\n", ind);
-        mudar=organizador_loop(temp, mudar, ind);
-        if(mudar==1){
-            mudar=0;
-            ind++;}
-        printf("voltou no indice %d\n", ind);
-    }
+    while(teste>0){
+        while(ind<maximo){
+            mudar=organizador_loop(temp, mudar, ind);
+            if(mudar==1){
+                mudar=0;
+                ind++;}}
+        teste--;
+        ind=0;}
 
-    *tree = temp;
-
-    num_order(&(*tree), maximo, indice);}
+    *tree = temp;}
 
 int organizador_loop(arvore_t *tree, int mudar, int indice){
 
@@ -202,7 +206,7 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
         calamidade++;}
 
     if(calamidade==2){
-        if (tree->numero){
+        if (tree->numero==ind){
             return 1;}
         return 0;}
 
@@ -214,28 +218,19 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
 
     if(tree->numero == ind){
 
-        printf("ENTROU NO IF\n");
-
         if(obter_prioridade(d_left) < obter_prioridade(d_right) && obter_prioridade(d_right) > obter_prioridade(d_center)){
-            printf("Troca para a esquerda\n");
             trocar(tree->right, tree);}
 
         else if(obter_prioridade(d_left) > obter_prioridade(d_right) && obter_prioridade(d_left) > obter_prioridade(d_center)){
-            printf("Troca para a direita\n");
             trocar(tree->left, tree);}
 
         else if(obter_prioridade(d_left) == obter_prioridade(d_right) && obter_prioridade(d_left) > obter_prioridade(d_center)){
-            printf("Terceira troca (esquerda)\n");
             trocar(tree->left, tree);}
 
         else
             return 1;}
 
-
-
-    printf("Vai para esquerda\n");
     mud=organizador_loop(tree->left, mud, ind);
-    printf("Vai para direira\n");
 
     if(mud==1){
         return 1;}
@@ -245,10 +240,7 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
     if(mud==1){
         return 1;}
 
-    printf("Volta final\n");
-    return 0;
-
-}
+    return 0;}
 
 void trocar(arvore_t *maior, arvore_t *menor){            //poe tudo do 1 no 2
     arvore_t *temp;
@@ -264,10 +256,4 @@ void trocar(arvore_t *maior, arvore_t *menor){            //poe tudo do 1 no 2
     maior->numero = temp->numero;
 
     free(temp);
-}
-
-
-void num_order(arvore_t **tree, int maximo, int indice){
-
-
 }
