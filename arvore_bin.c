@@ -5,6 +5,8 @@
 #include "arvore_bin.h"
 #include "pacientes.h"
 
+//#define DEBUG
+
 struct arvore {
     void *dados;
     struct arvore *right, * left;
@@ -111,6 +113,10 @@ void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int in
         *tree = temp;
         ind++;}
 
+    #ifdef DEBUG
+    printf("Adicionando novo paciente %s\n", obter_nome(temp->dado));
+    #endif // DEBUG
+
     while(ind<=maximo){
         ind = new_tree_loop(&(*tree)->left, paciente_atual, maximo, ind);
         ind = new_tree_loop(&(*tree)->right, paciente_atual, maximo, ind);}
@@ -163,6 +169,14 @@ int new_tree_loop(arvore_t **tree , paciente_t *paciente_atual[], int maximo, in
         *tree = temp;
 
         ind++;
+
+        #ifdef DEBUG
+        printf("Adicionando novo paciente %s\n", obter_nome(temp->dado));
+        #endif // DEBUG
+
+
+
+
         return ind;}
 
     ind = new_tree_loop(&(*tree)->left, paciente_atual, maximo, ind);
@@ -216,6 +230,27 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
     d_right = tree->right->dados;
 
 
+    if(tree->numero == ind && calamidade == 1){
+
+        if(obter_prioridade(d_left) > obter_prioridade(d_center)){
+            trocar(tree->left, tree);}
+
+        else if(obter_prioridade(d_left) == obter_prioridade(d_center)){
+
+            if(obter_chance(d_left) > obter_chance(d_center)){
+            trocar(tree->left, tree);}
+
+            else if(obter_chance(d_left) == obter_chance(d_center)){
+
+                if(obter_idade(d_left) < obter_idade(d_center)){
+                trocar(tree->left, tree);}
+
+               }}
+
+        else
+            return 1;}
+
+
     if(tree->numero == ind){
 
         if(obter_prioridade(d_left) < obter_prioridade(d_right) && obter_prioridade(d_right) > obter_prioridade(d_center)){
@@ -226,6 +261,27 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
 
         else if(obter_prioridade(d_left) == obter_prioridade(d_right) && obter_prioridade(d_left) > obter_prioridade(d_center)){
             trocar(tree->left, tree);}
+
+        else if(obter_prioridade(d_left) == obter_prioridade(d_right) && obter_prioridade(d_left) == obter_prioridade(d_center)){
+
+            if(obter_chance(d_left) < obter_chance(d_right) && obter_chance(d_right) > obter_chance(d_center)){
+                trocar(tree->right, tree);}
+
+            else if(obter_chance(d_left) > obter_chance(d_right) && obter_chance(d_left) > obter_chance(d_center)){
+            trocar(tree->left, tree);}
+
+            else if(obter_chance(d_left) == obter_chance(d_right) && obter_chance(d_left) > obter_chance(d_center)){
+            trocar(tree->left, tree);}
+
+             else if(obter_chance(d_left) == obter_chance(d_right) && obter_chance(d_left) == obter_chance(d_center)){
+
+                if(obter_idade(d_left) > obter_idade(d_right) && obter_idade(d_right) < obter_idade(d_center)){
+                trocar(tree->right, tree);}
+
+                else if(obter_idade(d_left) < obter_idade(d_right) && obter_idade(d_left) < obter_idade(d_center)){
+                trocar(tree->left, tree);}
+
+               }}
 
         else
             return 1;}
