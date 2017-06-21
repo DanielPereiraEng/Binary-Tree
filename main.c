@@ -39,6 +39,8 @@ int main()
 
     print_tree(arvore_organizada, tamanho, x);
 
+//    libera_tree(arvore_organizada, tamanho, x);
+
     libera_dados_list_enc(lista);
 
     return 0;
