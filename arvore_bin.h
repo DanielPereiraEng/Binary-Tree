@@ -19,4 +19,8 @@ int organizador_loop(arvore_t *tree, int mudar, int indice);
 
 void trocar(arvore_t *maior, arvore_t *menor);
 
+void libera_tree(arvore_t *tree, int tamanho, int indice);
+
+int limpar(arvore_t *tree, int tamanho, int indice);
+
 #endif /* ARVORE_BIN_H_ */
