@@ -55,15 +55,63 @@ int imprimir(arvore_t *tree, int tamanho, int indice){
     return ind;
 }
 
-//void deltree(arvore_t * tree)
-//{
-//    if (tree)
-//    {
-//        deltree(tree->left);
-//        deltree(tree->right);
-//        free(tree);
-//    }
-//}
+void libera_tree(arvore_t *tree, int tamanho, int indice){
+
+    printf("Entrou\n");
+
+    int tam=tamanho;
+
+    printf("Continuou 1\n");
+
+    if(tree == NULL){
+        printf("Continuou 2\n");
+        return;}
+
+    printf("Continuou 3n");
+
+    while(tam+1>0){
+        printf("Continuou 4\n");
+        printf("TAM: %d\n", tam);
+        tam=limpar(tree->left, tam, indice);
+        printf("Continuou 5\n");
+        tam=limpar(tree->right, tam, indice);}
+
+    return;}
+
+int limpar(arvore_t *tree, int tamanho, int indice){
+
+    printf("Ponto 1\n");
+
+    int tam=tamanho;
+
+    printf("Ponto 2\n");
+
+    if(tam<0)
+        return -1;
+
+    printf("Ponto 3\n");
+
+    if(tree->ordem == tam){
+        printf("Ponto 4\n");
+        free(tree);
+        printf("Ponto 5\n");
+        free==NULL;
+        printf("Ponto 6\n");
+        tam--;
+        printf("Ponto 7\n");
+        return tam;}
+
+    if(tree->left==NULL && tree->right==NULL){
+        printf("Left Right NULL\n");
+        return tam;}
+
+    printf("Left\n");
+    tam=limpar(tree->left, tam, indice);
+    printf("Right\n");
+    tam=limpar(tree->right, tam, indice);
+
+    return tam;
+}
 
 void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int indice){
 
