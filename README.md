@@ -22,3 +22,7 @@
     1 - imprimira a arvore organizada
     2 - usado para adquirir novos pacientes que serao colocados na arvore
     3 - terminara a execuçao do programa
+
+## Contribuitors
+
+  Daniel Pereira responsavel por todos os aspectos deste projeto.
