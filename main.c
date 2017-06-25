@@ -10,11 +10,11 @@ int main()
 {
     lista_enc_t *lista;
     no_t *no;
-    paciente_t *paciente_atual;
-    int x, tamanho;
-    arvore_t *arvore_organizada;
+    paciente_t *paciente;
+    int x, tamanho, escolha=0;
+    arvore_t *tree;
 
-    arvore_organizada = NULL;
+    tree = NULL;
 
     lista = ler_arquivo("Pacientes.csv");
 
@@ -25,21 +25,32 @@ int main()
     no = obtem_cabeca(lista);
 
     for(x = 0; x <= tamanho-1; x++){
-        paciente_atual = obter_dado(no);
-        buffer[x] = paciente_atual;
+        paciente = obter_dado(no);
+        buffer[x] = paciente;
         no = obter_proximo(no);}
 
-    x=0;
+    new_tree(&tree, buffer, tamanho-1);
 
-    new_tree(&arvore_organizada, buffer, tamanho-1, x);
+    heap_sort(&tree, tamanho);
 
-    x=0;
+    printf("Bem Vindo\nTrabalho Final - Fila de Hospital\nAluno: Daniel Pereira\n");
 
-    organizador(&arvore_organizada, tamanho, x);
-
-    print_tree(arvore_organizada, tamanho, x);
-
-//    libera_tree(arvore_organizada, tamanho, x);
+    while(escolha!=3){
+    printf("\nO que deseja fazer?\n(1) Imprimir a lista\n(2) Inserir novo paciente\n(3)Finalizar programa\n");
+    scanf("%d", &escolha);
+    switch(escolha){
+        case 1:
+            print_tree(tree, tamanho-1);
+            break;
+        case 2:
+            novo_paciente(&tree, tamanho);
+            tamanho++;
+            printf("TAMANHO: %d", tamanho);
+            heap_sort(&tree, tamanho);
+            break;
+        case 3:
+            break;}
+    }
 
     libera_dados_list_enc(lista);
 
