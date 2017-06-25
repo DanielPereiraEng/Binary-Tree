@@ -1,26 +1,33 @@
 #ifndef ARVORE_BIN_H_
 #define ARVORE_BIN_H_
 
+#include "lista_enc.h"
 #include "pacientes.h"
 
 typedef struct arvore arvore_t;
 
-void print_tree(arvore_t *tree, int tamanho, int indice);
+void new_tree(arvore_t **tree , paciente_t *pacientes[], int maximo);
 
-int imprimir(arvore_t *tree, int tamanho, int indice);
+void ramo_left(arvore_t **tree, paciente_t *pacientes[], int indice, int maximo);
 
-void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int indice);
+void ramo_right(arvore_t **tree, paciente_t *pacientes[], int indice, int maximo);
 
-int new_tree_loop(arvore_t **tree, paciente_t *paciente_atual[], int maximo, int indice);
+void print_tree(arvore_t *tree, int tamanho);
 
-void *organizador(arvore_t **tree, int maximo, int indice);
+int print_left(arvore_t *tree, int tamanho, int indice);
 
-int organizador_loop(arvore_t *tree, int mudar, int indice);
+int print_right(arvore_t *tree, int tamanho, int indice);
 
 void trocar(arvore_t *maior, arvore_t *menor);
 
-void libera_tree(arvore_t *tree, int tamanho, int indice);
+void *heap_sort(arvore_t **tree, int maximo);
 
-int limpar(arvore_t *tree, int tamanho, int indice);
+int organizador_loop(arvore_t *tree, int mudar, int indice);
+
+void novo_paciente(arvore_t **tree, int maximo);
+
+void novo_na_arvore(arvore_t **tree, paciente_t *paciente, int tamanho);
+
+void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho);
 
 #endif /* ARVORE_BIN_H_ */
