@@ -2,240 +2,190 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "lista_enc.h"
 #include "arvore_bin.h"
 #include "pacientes.h"
+
+#define TAM_BUFFER 100
 
 //#define DEBUG
 
 struct arvore {
     void *dados;
-    struct arvore *right, * left;
+    struct arvore *left, *right;
     int numero, ordem;
 };
 
-void print_tree(arvore_t *tree, int tamanho, int indice){
+void new_tree(arvore_t **tree , paciente_t *pacientes[], int maximo){
 
-    int ind=0;
-    paciente_t *paciente;
+    arvore_t *temp = (arvore_t *)malloc(sizeof(arvore_t));
+    int t1, t2;
+    int ind = 0;
 
-    if(tree == NULL){
-        return;}
+    t1 = 2*(ind) + 1;
+    t2 = 2*(ind) + 2;
 
-    if(tree->ordem == 0){
-        paciente = tree->dados;
-        printf("%s\n", obter_nome(paciente));
-        ind++;}
+    temp->dados = pacientes[ind];
+    temp->numero = temp->ordem = ind;
+    temp->left = temp->right = NULL;
 
-    while(ind<=tamanho-1){
-        ind=imprimir(tree->left, tamanho, ind);
-        ind=imprimir(tree->right, tamanho, ind);}
+    #ifdef DEBUG
+    paciente_t *tu = temp->dados;
+    printf("Adicionada a arvore paciente %d - %s\n", ind+1, obter_nome(tu));
+    #endif // DEBUG
+
+    *tree = temp;
+
+    ramo_left(&(*tree)->left, pacientes, t1, maximo);
+    ramo_right(&(*tree)->right, pacientes, t2, maximo);
 
     return;}
 
-int imprimir(arvore_t *tree, int tamanho, int indice){
+void ramo_left(arvore_t **tree, paciente_t *pacientes[], int indice, int maximo){
 
-    int ind=indice;
-    paciente_t *paciente;
+    if(indice > maximo)
+        return;
 
-    if(ind>tamanho)
-        return tamanho+1;
+    arvore_t *temp = (arvore_t *)malloc(sizeof(arvore_t));
+    int t1, t2;
 
-    if(tree->ordem == ind){
-        paciente = tree->dados;
-        printf("%s\n", obter_nome(paciente));
+    t1 = 2*(indice) + 1;
+    t2 = 2*(indice) + 2;
+
+    temp->dados = pacientes[indice];
+    temp->numero = temp->ordem = indice;
+    temp->left = temp->right = NULL;
+
+    #ifdef DEBUG
+    paciente_t *tu = temp->dados;
+    printf("Adicionada a arvore paciente %d - %s\n", indice+1, obter_nome(tu));
+    #endif // DEBUG
+
+    *tree = temp;
+
+    ramo_left(&(*tree)->left, pacientes, t1, maximo);
+
+    ramo_right(&(*tree)->right, pacientes, t2, maximo);
+
+    return;}
+
+void ramo_right(arvore_t **tree, paciente_t *pacientes[], int indice, int maximo){
+
+    if(indice > maximo)
+        return;
+
+    arvore_t *temp = (arvore_t *)malloc(sizeof(arvore_t));
+    int t1, t2;
+
+    t1 = 2*(indice) + 1;
+    t2 = 2*(indice) + 2;
+
+    temp->dados = pacientes[indice];
+    temp->numero = temp->ordem = indice;
+    temp->left = temp->right = NULL;
+
+    #ifdef DEBUG
+    paciente_t *tu = temp->dados;
+    printf("Adicionada a arvore paciente %d - %s\n", indice+1, obter_nome(tu));
+    #endif // DEBUG
+
+    *tree = temp;
+
+    ramo_left(&(*tree)->left, pacientes, t1, maximo);
+
+    ramo_right(&(*tree)->right, pacientes, t2, maximo);
+
+    return;}
+
+void print_tree(arvore_t *tree, int tamanho){
+
+    int ind=0;
+    paciente_t *pac;
+    arvore_t *temp = (arvore_t *)malloc(sizeof(arvore_t));
+
+    temp = tree;
+
+    if(temp->ordem == 0){
+        pac = temp->dados;
+        printf("Paciente %d: %s\n", ind+1, obter_nome(pac));
+        ind++;}
+
+    while(ind<=tamanho){
+        ind = print_left(temp->left, tamanho, ind);
+        ind = print_right(temp->right, tamanho, ind);}
+
+    return;}
+
+int print_left(arvore_t *tree, int tamanho, int indice){
+
+    if(indice > tamanho){
+        return;}
+
+    arvore_t *temp = tree;
+    paciente_t *pac;
+    int ind = indice;
+
+    if (temp->dados == NULL){
+        return ind;}
+
+    if (ind == temp->ordem){
+        pac = temp->dados;
+        printf("Paciente %d: %s\n", ind+1, obter_nome(pac));
         ind++;
         return ind;}
 
-    if(tree->left==NULL && tree->right==NULL)
-        return ind;
+    ind = print_left(temp->left, tamanho, ind);
 
-    ind=imprimir(tree->left, tamanho, ind);
-    ind=imprimir(tree->right, tamanho, ind);
+    ind = print_right(temp->right, tamanho, ind);
 
     return ind;
 }
 
-void libera_tree(arvore_t *tree, int tamanho, int indice){
+int print_right(arvore_t *tree, int tamanho, int indice){
 
-    printf("Entrou\n");
-
-    int tam=tamanho;
-
-    printf("Continuou 1\n");
-
-    if(tree == NULL){
-        printf("Continuou 2\n");
+    if(indice > tamanho){
         return;}
 
-    printf("Continuou 3n");
-
-    while(tam+1>0){
-        printf("Continuou 4\n");
-        printf("TAM: %d\n", tam);
-        tam=limpar(tree->left, tam, indice);
-        printf("Continuou 5\n");
-        tam=limpar(tree->right, tam, indice);}
-
-    return;}
-
-int limpar(arvore_t *tree, int tamanho, int indice){
-
-    printf("Ponto 1\n");
-
-    int tam=tamanho;
-
-    printf("Ponto 2\n");
-
-    if(tam<0)
-        return -1;
-
-    printf("Ponto 3\n");
-
-    if(tree->ordem == tam){
-        printf("Ponto 4\n");
-        free(tree);
-        printf("Ponto 5\n");
-        free==NULL;
-        printf("Ponto 6\n");
-        tam--;
-        printf("Ponto 7\n");
-        return tam;}
-
-    if(tree->left==NULL && tree->right==NULL){
-        printf("Left Right NULL\n");
-        return tam;}
-
-    printf("Left\n");
-    tam=limpar(tree->left, tam, indice);
-    printf("Right\n");
-    tam=limpar(tree->right, tam, indice);
-
-    return tam;
-}
-
-void new_tree(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int indice){
-
-    arvore_t *temp = *tree;
-    arvore_t *temp2, *temp3;
-    int t1, t2;
+    arvore_t *temp = tree;
+    paciente_t *pac;
     int ind = indice;
-    t1 = 2*(ind) + 1;
-    t2 = 2*(ind) + 2;
 
-    if(indice == 0){
-        temp = (arvore_t *)malloc(sizeof(arvore_t));
-        temp->numero = indice;
-        temp->ordem = indice;
-        temp->dados = paciente_atual[ind];
-
-        if(t1>maximo){
-            printf("saida 1\n");
-            temp->left =  NULL;
-            temp->right = NULL;
-            *tree = temp;
-            return;}
-
-        temp2 = (arvore_t *)malloc(sizeof(arvore_t));
-        temp2->left =  NULL;
-        temp2->right = NULL;
-        temp2->numero = (t1);
-        temp2->ordem = (t1);
-        temp2->dados = paciente_atual[t1];
-
-        if(t2>maximo){
-            printf("saida 2\n");
-            temp->right = NULL;
-            *tree = temp;
-            return;}
-
-        temp3 = (arvore_t *)malloc(sizeof(arvore_t));
-        temp3->left =  NULL;
-        temp3->right = NULL;
-        temp3->numero = (t2);
-        temp3->ordem = (t2);
-        temp3->dados = paciente_atual[t2];
-
-        temp->left = temp2;
-        temp->right = temp3;
-
-        *tree = temp;
-        ind++;}
-
-    #ifdef DEBUG
-    printf("Adicionando novo paciente %s\n", obter_nome(temp->dado));
-    #endif // DEBUG
-
-    while(ind<=maximo){
-        ind = new_tree_loop(&(*tree)->left, paciente_atual, maximo, ind);
-        ind = new_tree_loop(&(*tree)->right, paciente_atual, maximo, ind);}
-
-
-    free(temp);
-    free(temp2);
-    free(temp3);
-
-    return;
-}
-
-int new_tree_loop(arvore_t **tree , paciente_t *paciente_atual[], int maximo, int indice){
-
-    arvore_t *temp = *tree;
-    arvore_t *temp2, *temp3;
-    int t1, t2;
-    int ind = indice;
-    t1 = 2*(ind) + 1;
-    t2 = 2*(ind) + 2;
-
-    if (ind>maximo)
-        return ind;
-
-    if(temp->numero==ind){
-
-        if(t1>maximo)
-            return maximo+1;
-
-        temp2 = (arvore_t *)malloc(sizeof(arvore_t));
-        temp2->left =  NULL;
-        temp2->right = NULL;
-        temp2->numero = t1;
-        temp2->ordem = t1;
-        temp2->dados = paciente_atual[t1];
-
-        if(t2>maximo)
-            return maximo+1;
-
-        temp3 = (arvore_t *)malloc(sizeof(arvore_t));
-        temp3->left =  NULL;
-        temp3->right = NULL;
-        temp3->numero = t2;
-        temp3->ordem = t2;
-        temp3->dados = paciente_atual[t2];
-
-        temp->left = temp2;
-        temp->right = temp3;
-
-        *tree = temp;
-
-        ind++;
-
-        #ifdef DEBUG
-        printf("Adicionando novo paciente %s\n", obter_nome(temp->dado));
-        #endif // DEBUG
-
-
-
-
+    if (temp->dados == NULL){
         return ind;}
 
-    ind = new_tree_loop(&(*tree)->left, paciente_atual, maximo, ind);
-    ind = new_tree_loop(&(*tree)->right, paciente_atual, maximo, ind);
+    if (ind == temp->ordem){
+        pac = temp->dados;
+        printf("Paciente %d: %s\n", ind+1, obter_nome(pac));
+        ind++;
+        return ind;}
 
-    return ind;}
+    ind = print_left(temp->left, tamanho, ind);
 
-void *organizador(arvore_t **tree, int maximo, int indice){
+    ind = print_right(temp->right, tamanho, ind);
+
+    return ind;
+}
+
+void trocar(arvore_t *maior, arvore_t *menor){
+    arvore_t *temp;
+    temp = (arvore_t *)malloc(sizeof(arvore_t));
+
+    temp->dados = menor->dados;
+    temp->numero = menor->numero;
+
+    menor->dados = maior->dados;
+    menor->numero = maior->numero;
+
+    maior->dados = temp->dados;
+    maior->numero = temp->numero;
+
+    free(temp);
+}
+
+void *heap_sort(arvore_t **tree, int maximo){
 
     int mudar=0, teste;
-    int ind=indice;
+    int ind=0;
     arvore_t *temp = *tree;
 
     teste = sqrt(maximo);
@@ -249,7 +199,9 @@ void *organizador(arvore_t **tree, int maximo, int indice){
         teste--;
         ind=0;}
 
-    *tree = temp;}
+    *tree = temp;
+
+    return;}
 
 int organizador_loop(arvore_t *tree, int mudar, int indice){
 
@@ -275,8 +227,6 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
     paciente_t *d_center, *d_left, *d_right;
     d_center = tree->dados;
     d_left = tree->left->dados;
-    d_right = tree->right->dados;
-
 
     if(tree->numero == ind && calamidade == 1){
 
@@ -298,6 +248,16 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
         else
             return 1;}
 
+    printf("ESSA PORRA\n");
+
+    if(tree->right == NULL){
+        return 1;
+    }
+
+    d_right = tree->right->dados;
+
+
+    printf("ESSA BOSTA\n");
 
     if(tree->numero == ind){
 
@@ -346,18 +306,95 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
 
     return 0;}
 
-void trocar(arvore_t *maior, arvore_t *menor){            //poe tudo do 1 no 2
-    arvore_t *temp;
-    temp = (arvore_t *)malloc(sizeof(arvore_t));
+void novo_paciente(arvore_t **tree, int tamanho){
 
-    temp->dados = menor->dados;
-    temp->numero = menor->numero;
+    system("@cls||clear");
 
-    menor->dados = maior->dados;
-    menor->numero = maior->numero;
+    paciente_t *paciente;
+    char nome[TAM_BUFFER], diagnostico[TAM_BUFFER], sexo;
+    int idade, prioridade, chance, ind;
 
-    maior->dados = temp->dados;
-    maior->numero = temp->numero;
+    printf("\nInsira o nome: ");
+    scanf("%s", &nome);
 
-    free(temp);
-}
+    fflush(stdin);
+
+    printf("\n\nSexo(f para feminino e m para masculino): ");
+    scanf("%c", &sexo);
+
+    fflush(stdin);
+
+    printf("\n\nIdade: ");
+    scanf("%i", &idade);
+
+    fflush(stdin);
+
+    printf("\n\nInsira o diagnostivo: ");
+    scanf("%s", &diagnostico);
+
+    fflush(stdin);
+
+    printf("\n\nPrioridade (1 a 10): ");
+    scanf("%i", &prioridade);
+
+    fflush(stdin);
+
+    printf("\n\nChance de sobrevivencia (1 a 100): ");
+    scanf("%i", &chance);
+
+    fflush(stdin);
+
+    system("@cls||clear");
+
+    printf("\n\nNovo paciente introduzido\n\n");
+
+    paciente = cria_paciente(nome, idade, sexo, diagnostico, prioridade, chance);
+
+    #ifdef DEBUG
+    printf("Nome: %s\nIdade: %d\nSexo %c\n", obter_nome(paciente), obter_idade(paciente), obter_sexo(paciente));
+    printf("Diagnostico: %s\nPrioridade: %d\nChance de sobrevivencia: %d\n", obter_diagnostico(paciente), obter_prioridade(paciente), obter_chance(paciente));
+    #endif // DEBUG
+
+
+    novo_na_arvore(&(*tree)->left, paciente, tamanho);
+    novo_na_arvore(&(*tree)->right, paciente, tamanho);
+
+    return;}
+
+void novo_na_arvore(arvore_t **tree, paciente_t *paciente, int tamanho){
+
+    arvore_t *temp = *tree;
+    paciente_t *pac;
+    int left, right;
+
+    if(temp==NULL){
+        return;}
+
+    left = 2*(temp->ordem) + 1;
+    right = 2*(temp->ordem) + 2;
+
+    if(left == tamanho){
+        new_leaf(&(*tree)->left, paciente, tamanho);
+        return;}
+
+    if(right == tamanho){
+        new_leaf(&(*tree)->right, paciente, tamanho);
+        return;}
+
+    novo_na_arvore(&(*tree)->left, paciente, tamanho);
+    novo_na_arvore(&(*tree)->right, paciente, tamanho);
+
+    return;}
+
+void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho){
+
+    arvore_t *leaf = (arvore_t *)malloc(sizeof(arvore_t));
+
+    leaf->dados = paciente;
+    leaf->numero = leaf->ordem = tamanho;
+    leaf->left = leaf->right = NULL;
+
+    *tree = leaf;
+
+    return;}
+
