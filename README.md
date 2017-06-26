@@ -18,7 +18,7 @@
   
 ## Uso do Programa
 
-  Inicialmente você sera introduzido ao menu com 3 opções: 1 (imprimira a arvore organizada), 2 (usado para adquirir novos pacientes que serao colocados na arvore) e 3 (terminara a execuçao do programa).
+  Inicialmente você sera introduzido ao menu com 4 opções: 1 (imprimira a arvore organizada), 2 (usado para adquirir novos pacientes que serao colocados na arvore), 3 (medira o tempo da execuçao de cem mil heapsorts, pois a execuçao de apenas um é rapido demais para ser medido) e 4 (finalizar o programa).
 
 ## Contribuitors
 
