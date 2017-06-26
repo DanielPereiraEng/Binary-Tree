@@ -30,6 +30,4 @@ void novo_na_arvore(arvore_t **tree, paciente_t *paciente, int tamanho);
 
 void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho);
 
-void atender_paciente(arvore_t **tree);
-
 #endif /* ARVORE_BIN_H_ */
