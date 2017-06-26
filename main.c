@@ -45,7 +45,6 @@ int main()
         case 2:
             novo_paciente(&tree, tamanho);
             tamanho++;
-            printf("TAMANHO: %d", tamanho);
             heap_sort(&tree, tamanho);
             break;
         case 3:
