@@ -39,6 +39,8 @@ void new_tree(arvore_t **tree , paciente_t *pacientes[], int maximo){
     ramo_left(&(*tree)->left, pacientes, t1, maximo);
     ramo_right(&(*tree)->right, pacientes, t2, maximo);
 
+    free(temp);
+
     return;}
 
 void ramo_left(arvore_t **tree, paciente_t *pacientes[], int indice, int maximo){
@@ -390,5 +392,18 @@ void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho){
     leaf->left = leaf->right = NULL;
 
     *tree = leaf;
+
+    return;}
+
+void liberador(arvore_t *tree,int tamanho){
+
+    if(tree == NULL){
+        return;}
+
+    if(tree->ordem == tamanho){
+        free(tree);}
+
+    liberador(tree->left, tamanho);
+    liberador(tree->right, tamanho);
 
     return;}
