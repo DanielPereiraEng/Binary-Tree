@@ -392,15 +392,3 @@ void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho){
     *tree = leaf;
 
     return;}
-
-void atender_paciente(arvore_t **tree){
-
-    arvore_t *temp = *tree;
-    char a[20]="Paciente Atendido", b="a";
-    paciente_t *atendido = cria_paciente(a, 0, b, a, 0, 100);
-
-    temp->dados = atendido;
-
-    *tree = temp;
-}
-
