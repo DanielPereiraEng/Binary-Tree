@@ -22,4 +22,4 @@
 
 ## Contribuitors
 
-  O aluno Daniel Pereira responsavel por todos os aspectos deste projeto.
+  O aluno Daniel Pereira é responsavel por todos os aspectos deste projeto.
