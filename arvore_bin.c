@@ -38,8 +38,6 @@ void new_tree(arvore_t **tree , paciente_t *pacientes[], int maximo){
 
     ramo_left(&(*tree)->left, pacientes, t1, maximo);
     ramo_right(&(*tree)->right, pacientes, t2, maximo);
-    
-    free(temp);
 
     return;}
 
