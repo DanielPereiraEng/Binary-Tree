@@ -30,4 +30,6 @@ void novo_na_arvore(arvore_t **tree, paciente_t *paciente, int tamanho);
 
 void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho);
 
+void liberador(arvore_t *tree,int tamanho);
+
 #endif /* ARVORE_BIN_H_ */
