@@ -19,9 +19,9 @@
 ## Uso do Programa
 
   Inicialmente você sera introduzido ao menu com 3 opções:
-    1 - imprimira a arvore organizada
-    2 - usado para adquirir novos pacientes que serao colocados na arvore
-    3 - terminara a execuçao do programa
+    \n1 - imprimira a arvore organizada
+    \n2 - usado para adquirir novos pacientes que serao colocados na arvore
+    \n3 - terminara a execuçao do programa
 
 ## Contribuitors
 
