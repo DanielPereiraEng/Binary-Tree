@@ -65,7 +65,7 @@ int main()
                 heap_sort(&tree, tamanho);}
             temp2 = clock();
             tempo = (temp2-temp1)/CLOCKS_PER_SEC;
-            printf("\nO tempo medio da execuçao de cem mil heapsorts eh de %.2f segundos\n\n", tempo);
+            printf("\nO tempo medio de cem mil loops de heapsorts eh de %.2f segundos\n\n", tempo);
             break;
         case 4:
             system("@cls||clear");
