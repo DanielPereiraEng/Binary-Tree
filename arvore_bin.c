@@ -248,16 +248,11 @@ int organizador_loop(arvore_t *tree, int mudar, int indice){
         else
             return 1;}
 
-    printf("ESSA PORRA\n");
-
     if(tree->right == NULL){
         return 1;
     }
 
     d_right = tree->right->dados;
-
-
-    printf("ESSA BOSTA\n");
 
     if(tree->numero == ind){
 
@@ -397,4 +392,5 @@ void new_leaf(arvore_t **tree, paciente_t *paciente, int tamanho){
     *tree = leaf;
 
     return;}
+
 
