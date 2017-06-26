@@ -169,8 +169,6 @@ int print_right(arvore_t *tree, int tamanho, int indice){
 void trocar(arvore_t *maior, arvore_t *menor){
     arvore_t *temp;
     temp = (arvore_t *)malloc(sizeof(arvore_t));
-    
-    printf("Torta de morango");
 
     temp->dados = menor->dados;
     temp->numero = menor->numero;
