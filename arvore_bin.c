@@ -204,8 +204,6 @@ void *heap_sort(arvore_t **tree, int maximo){
     return;}
 
 int organizador_loop(arvore_t *tree, int mudar, int indice){
-    
-    printf("Coxinhas: %d", mudar);
 
     int ind, mud, calamidade;
     ind = indice;
