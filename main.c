@@ -45,11 +45,12 @@ int main()
     printf("Bem Vindo\nTrabalho Final - Fila de Hospital\nAluno: Daniel Pereira\n");
 
     while(escolha!=4){
-    printf("\nO que deseja fazer?\n(1) Imprimir a lista\n(2) Inserir novo paciente\n(3)Para ver o tempo que cem mil Heapsort levam para executar\n(4)Finalizar o programa\n");
+    printf("\nO que deseja fazer?\n(1) Imprimir a lista\n(2) Inserir novo paciente\n(3) Para ver o tempo que cem mil Heapsort levam para executar\n(4) Finalizar o programa\n");
     printf("\n\nSua escolha: \n");
     scanf("%d", &escolha);
     switch(escolha){
         case 1:
+            temp1 = clock();
             print_tree(tree, tamanho-1);
             break;
         case 2:
