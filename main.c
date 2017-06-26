@@ -68,10 +68,13 @@ int main()
             printf("\nO tempo medio da execuçao de cem mil heapsorts eh de %.2f segundos\n\n", tempo);
             break;
         case 4:
+            system("@cls||clear");
             break;}
     }
 
-    free(tree);
+    while (tamanho>0){
+        liberador(tree, tamanho-1);
+        tamanho--;}
 
     libera_dados_list_enc(lista);
 
