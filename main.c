@@ -39,7 +39,7 @@ int main()
 
 
     temp1 = clock();
-    heap_sort(&tree, tamanho);
+//    heap_sort(&tree, tamanho);
     temp2 = clock();
 
     printf("Bem Vindo\nTrabalho Final - Fila de Hospital\nAluno: Daniel Pereira\n");
@@ -49,7 +49,7 @@ int main()
     printf("\n\nSua escolha: \n");
     scanf("%d", &escolha);
     switch(escolha){
-        case 1:
+       case 1:
             temp1 = clock();
             print_tree(tree, tamanho-1);
             break;
