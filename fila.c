@@ -92,3 +92,4 @@ int fila_vazia(fila_t *fila)
     return lista_vazia(fila->dados);
 }
 
+
