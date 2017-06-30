@@ -39,7 +39,7 @@ int main()
 
 
     temp1 = clock();
-//    heap_sort(&tree, tamanho);
+    heap_sort(&tree, tamanho);
     temp2 = clock();
 
     printf("Bem Vindo\nTrabalho Final - Fila de Hospital\nAluno: Daniel Pereira\n");
