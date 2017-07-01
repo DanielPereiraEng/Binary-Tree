@@ -72,7 +72,7 @@ int main()
     }
 
     while (tamanho>0){
-        liberador(tree, tamanho-1);
+        //liberador(tree, tamanho-1);
         tamanho--;}
 
     libera_dados_list_enc(lista);
