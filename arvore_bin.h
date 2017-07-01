@@ -20,7 +20,7 @@ int print_right(arvore_t *tree, int tamanho, int indice);
 
 void trocar(arvore_t *maior, arvore_t *menor);
 
-void *heap_sort(arvore_t **tree, int maximo);
+void heap_sort(arvore_t **tree, int maximo);
 
 int organizador_loop(arvore_t *tree, int mudar, int indice);
 
