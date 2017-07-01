@@ -7,6 +7,8 @@
 #include "lista_enc.h"
 #include "no.h"
 
+#define LOOPS 100000
+
 int main()
 {
     lista_enc_t *lista;
@@ -37,10 +39,7 @@ int main()
 
     new_tree(&tree, buffer, tamanho-1);
 
-
-    temp1 = clock();
     heap_sort(&tree, tamanho);
-    temp2 = clock();
 
     printf("Bem Vindo\nTrabalho Final - Fila de Hospital\nAluno: Daniel Pereira\n");
 
@@ -50,7 +49,7 @@ int main()
     scanf("%d", &escolha);
     switch(escolha){
        case 1:
-            temp1 = clock();
+           printf("\n");
             print_tree(tree, tamanho-1);
             break;
         case 2:
@@ -61,7 +60,7 @@ int main()
         case 3:
             system("@cls||clear");
             temp1 = clock();
-            for(loop=0; loop<=100000 ;loop++){
+            for(loop=0; loop<=LOOPS ;loop++){
                 heap_sort(&tree, tamanho);}
             temp2 = clock();
             tempo = (temp2-temp1)/CLOCKS_PER_SEC;
