@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "lista_enc.h"
 #include "arvore_bin.h"
@@ -38,8 +39,6 @@ void new_tree(arvore_t **tree , paciente_t *pacientes[], int maximo){
 
     ramo_left(&(*tree)->left, pacientes, t1, maximo);
     ramo_right(&(*tree)->right, pacientes, t2, maximo);
-
-    free(temp);
 
     return;}
 
@@ -121,7 +120,7 @@ void print_tree(arvore_t *tree, int tamanho){
 int print_left(arvore_t *tree, int tamanho, int indice){
 
     if(indice > tamanho){
-        return;}
+        return indice;}
 
     arvore_t *temp = tree;
     paciente_t *pac;
@@ -146,7 +145,7 @@ int print_left(arvore_t *tree, int tamanho, int indice){
 int print_right(arvore_t *tree, int tamanho, int indice){
 
     if(indice > tamanho){
-        return;}
+        return indice;}
 
     arvore_t *temp = tree;
     paciente_t *pac;
@@ -180,11 +179,9 @@ void trocar(arvore_t *maior, arvore_t *menor){
 
     maior->dados = temp->dados;
     maior->numero = temp->numero;
-
-    free(temp);
 }
 
-void *heap_sort(arvore_t **tree, int maximo){
+void heap_sort(arvore_t **tree, int maximo){
 
     int mudar=0, teste;
     int ind=0;
@@ -309,7 +306,7 @@ void novo_paciente(arvore_t **tree, int tamanho){
 
     paciente_t *paciente;
     char nome[TAM_BUFFER], diagnostico[TAM_BUFFER], sexo;
-    int idade, prioridade, chance, ind;
+    int idade, prioridade, chance;
 
     printf("\nInsira o nome: ");
     scanf("%s", &nome);
@@ -361,7 +358,6 @@ void novo_paciente(arvore_t **tree, int tamanho){
 void novo_na_arvore(arvore_t **tree, paciente_t *paciente, int tamanho){
 
     arvore_t *temp = *tree;
-    paciente_t *pac;
     int left, right;
 
     if(temp==NULL){
