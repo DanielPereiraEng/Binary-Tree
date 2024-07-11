@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Responder Perguntas</h1>
+<div mat-dialog-content>
+  <form>
+    <div *ngFor="let question of data.questions">
+      <label>{{ question.questionText }}</label>
+      <div *ngFor="let option of question.options">
+        <input type="radio" [id]="question.id + option" [name]="question.id" [value]="option.toString()" [(ngModel)]="question.answer" />
+        [name]="question.id"
+        <label [for]="question.id + option">{{ option }}</label>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onConfirm()">Confirmar</button>
+</div>
