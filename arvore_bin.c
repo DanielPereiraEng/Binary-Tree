@@ -11,6 +11,8 @@
 
 //#define DEBUG
 
+// TESTE
+
 struct arvore {
     void *dados;
     struct arvore *left, *right;
