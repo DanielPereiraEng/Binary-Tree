@@ -12,6 +12,7 @@
 //#define DEBUG
 
 // TESTE
+// TENTANDO TESTTAR ALGO
 
 struct arvore {
     void *dados;
